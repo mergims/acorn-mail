@@ -54,7 +54,7 @@ class WordPressMail
             $this->replaceWordPressUrls($mail['message'])
         );
 
-        return Mail::to($mail['to'])->send(new WordPressMailable($mail));
+        Mail::to($mail['to'])->send(new WordPressMailable($mail));
 
         return null;
     }
