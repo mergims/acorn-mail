@@ -19,7 +19,7 @@ class WordPressMail
     /**
      *  Creates a new WordPressMail instance.
      *
-     * @param  Roots\Acorn\Application $app
+     * @param Roots\Acorn\Application $app
      * @return object $this
      */
     public function __construct(Application $app)
@@ -32,7 +32,7 @@ class WordPressMail
     /**
      * Intitializes and registers the class with `wp_mail`.
      *
-     * @param  Illuminate\Support\Collection $config
+     * @param Illuminate\Support\Collection $config
      * @return object $this
      */
     public function init()
@@ -45,7 +45,7 @@ class WordPressMail
     /**
      * Initializes an instance of WordPressMailable and sends the passed mail.
      *
-     * @param  array $mail
+     * @param array $mail
      * @return void
      */
     public function mail(array $mail)
@@ -62,7 +62,7 @@ class WordPressMail
     /**
      * Replaces WordPress default linebreaks with HTML entities
      *
-     * @param  string $copy
+     * @param string $copy
      * @return string
      */
     public function replaceWordPressBreaks($copy)
@@ -74,13 +74,17 @@ class WordPressMail
      * Replaces WordPress email URL formatting with something that won't
      * get stripped from html email
      *
-     * @param  string $copy
+     * @param string $copy
      * @return string
      */
     public function replaceWordPressUrls($copy)
     {
         preg_match('~<(.*?)>~', $copy, $output);
 
-        return str_replace($output[0], $output[1], $copy);
+        if (!!$output) {
+            return str_replace($output[0], $output[1], $copy);
+        }
+
+        return $copy;
     }
 }
